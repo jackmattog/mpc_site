@@ -45,3 +45,5 @@ node_modules/
 
 # tailwind output.css
 static/dist/output.css
+
+static/dist/
