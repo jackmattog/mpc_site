@@ -42,3 +42,6 @@ htmlcov/
 
 # Node
 node_modules/
+
+# tailwind output.css
+static/dist/output.css
