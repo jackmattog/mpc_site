@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Templates for tailwind to check */
+@source "../../**/templates/**/*.html"; 
+
+/* Custom themes */
+@theme {
+  --color-brand-blue: #0052cc;
+  --color-brand-green: #00875a;
+}
