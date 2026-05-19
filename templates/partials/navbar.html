@@ -1,37 +1,132 @@
-<nav class="m-3 bg-gray-100 border-2 p-4 border-gray-200 rounded-2xl">
+<nav class="bg-gray-100 border-2 p-4 border-gray-200 rounded-2xl">
     <!--desktop navabar-->
 
     <!--Outer container-->
-    <div class="hidden md:flex flex-row items-center justify-between">
-        <!--account container-->
+    <div class="hidden md:flex flex-col">
+        <div class="flex flex-row items-center justify-between">
+            <!--account container-->
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
+                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 
+                7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 
+                0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 
+                1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+            </div>
+
+            <!--search container-->
+            <div class="relative">
+                <input class="border rounded-2xl py-3 px-4 pr-10" type="text" placeholder="Search products">
+                <div class="absolute inset-y-0 right-3 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" 
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!--Logo-->
+            <div>
+                <h1 class="mb-0 text-green-700">MPC</h1>
+                <h4 class="mt-0 text-blue-700">( Mabatini Pumba Center )</h4>
+            </div>
+        </div>
+        <!--Links-->
         <div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 
-            7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 
-            0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 
-            1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
+            <ul class="flex flex-row items-center justify-evenly">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Mixing formulas</a></li>
+                <li><a href="#">Farming advice</a></li>
+                <li><a href="#">Tips</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--Mobile navbar-->
+
+    <!--outer container-->
+    <div class="md:hidden flex flex-col gap-4 mx-auto">
+        <!--acccount,logo and menu button container-->
+        <div class="flex justify-between items-center">
+            <!--acoount-->
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
+                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 
+                2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 
+                21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+            </div>
+
+            <!--logo-->
+            <div>
+                <h1 class="mb-0 text-green-700">MPC</h1>
+                <h4 class="mt-0 text-blue-700">( Mabatini Pumba Center )</h4>
+            </div>
+
+            <!--menu button-->
+            <div class="relative">
+                <button id="menu-btn" class="text-gray-700 hover:text-green-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" 
+                    stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                </button>
+
+               <div id="menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div class="py-2 flex flex-col">
+                        <a href="#" class="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Home</a>
+                        <a href="#" class="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">About us</a>
+                        <a href="#" class="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Contact us</a>
+                        <a href="#" class="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Mixing formulas</a>
+                        <a href="#" class="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Farming advice</a>
+                        <a href="#" class="px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Tips</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!--search container-->
-        <div class="relative">
-            <input class="border rounded-2xl py-3 px-4 pr-10" type="text" placeholder="Search products">
-            <div class="absolute inset-y-0 right-3 flex items-center">
+        <div class="relative w-4/5 mx-auto">
+            <input class="w-full border border-gray-300 rounded-2xl py-3 
+            px-4 pr-10" type="text" placeholder="Search products">
+            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+                class="size-6 text-gray-500">
                 <path stroke-linecap="round" stroke-linejoin="round" 
                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
             </div>
         </div>
-
-        <!--Logo-->
-        <div>
-            <h1 class="mb-0 text-green-700">MPC</h1>
-            <h4 class="mt-0 text-blue-700">( Mabatini Pumba Center )</h4>
-        </div>
     </div>
-
 </nav>
+
+<!--Js for menu-->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menu-btn');
+    const menuDropdown = document.getElementById('menu-dropdown');
+
+    if (menuBtn && menuDropdown) {
+        menuBtn.addEventListener('click', (e) => {
+            // Prevent the click from immediately bubbling up to document
+            e.stopPropagation(); 
+            menuDropdown.classList.toggle('hidden');
+        });
+
+        //Close the menu if the user clicks anywhere else on the screen
+        document.addEventListener('click', (e) => {
+            if (!menuDropdown.contains(e.target) && e.target !== menuBtn) {
+                menuDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script>

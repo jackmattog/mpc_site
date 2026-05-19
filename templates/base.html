@@ -8,7 +8,7 @@
     
     <link rel="stylesheet" href="{% static 'dist/output.css' %}">
 </head>
-<body>
+<body class="m-4">
 
     <!--Add navbar partial-->
     {% include 'partials/navbar.html' %}
@@ -17,6 +17,12 @@
         {% block content %}
         {% endblock content %}
     </main>
+
+    <!--Add contacts partials-->
+    {% include 'partials/contacts.html' %}
+    
+    <!--Add footer partial-->
+    {% include 'partials/footer.html' %}
 
 </body>
 </html>
