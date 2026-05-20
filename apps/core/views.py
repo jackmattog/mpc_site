@@ -13,9 +13,12 @@ class HomeView(ListView):
     context_object_name = "products"
 
     def get_queryset(self):
+
+        #Grab slug from url bar
         slug = self.kwargs.get("slug")
         if slug:
-            return Product.objects.filter(category__slug=slug)
+            return Product.objects.filter(product_category__slug=slug)
+        #if user is just visiting homepage
         return Product.objects.all()
     
     def get_context_data(self,**kwargs):
