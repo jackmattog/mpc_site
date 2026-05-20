@@ -2,6 +2,13 @@
 
 {% block content %}
 <section>
-    <h1 class="underline text-3xl text-amber-300">Welcome to MPC website</h1>
+    <div>
+        <h2>Homepage</h2>
+        {% for category in categories %}
+        <a href="{% url 'core:categories' category.slug %}">
+        {{category.category_name}}
+        </a>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
