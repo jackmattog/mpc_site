@@ -3,7 +3,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import TemplateView,ListView
-from apps.products.models import Product,ProductCategory
+from apps.products.models import Product,ProductCategory,ProductSupplier
 # Create your views here.
 
 #Homepage view
@@ -13,16 +13,20 @@ class HomeView(ListView):
     context_object_name = "products"
 
     def get_queryset(self):
-
-        #Grab slug from url bar
         slug = self.kwargs.get("slug")
+        
         if slug:
+            # User clicked a category → filter by category
             return Product.objects.filter(product_category__slug=slug)
-        #if user is just visiting homepage
-        return Product.objects.all()
-    
-    def get_context_data(self,**kwargs):
+        else:
+            # Homepage default → show products from MPC supplier
+            default_supplier = "MPC"   
+            return Product.objects.filter(
+                product_supplier__supplier_name=default_supplier
+            )
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categories"] = ProductCategory.objects.all()
         return context
-    
+        
