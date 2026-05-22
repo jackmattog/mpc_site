@@ -5,7 +5,7 @@
     
     <!-- Categories -->
     <div class="mb-12">
-        <h2 class="text-4xl font-bold text-blue-700 mb-6">Homepage</h2>
+        <h2 class="text-4xl font-bold text-blue-700 mb-6">Product Categories</h2>
         
         <div class="flex flex-wrap gap-4">
             {% for category in categories %}
@@ -41,7 +41,7 @@
                         {{ product.product_name }}
                     </h3>
                     <p class="text-green-600 font-medium">
-                        Supplied by {{ product.product_supplier }}
+                        Supplied by {{ product.product_supplier.supplier_name }}
                     </p>
                     
                     <p class="mt-4 text-gray-600 text-sm line-clamp-4">
