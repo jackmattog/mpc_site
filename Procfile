@@ -1,0 +1,1 @@
+web: gunicorn mpc_site.wsgi
