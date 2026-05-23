@@ -14,6 +14,7 @@ import os
 import dj_database_url
 import environ
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,18 +89,29 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-from decouple import config
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+
+# 1. Try to read DATABASE_URL directly from the system environment (Render)
+# 2. Fall back to my decouple config() look up if it's running locally
+database_url = os.environ.get("DATABASE_URL") or config("DATABASE_URL", default=None)
+if database_url:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            str(database_url),
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True
+        )
     }
-}
+else:
+    # This keeps your local development SQLite file working safely on your PC
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 # Password validation
