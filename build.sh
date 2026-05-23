@@ -2,6 +2,12 @@
 # Exit on error
 set -o errexit
 
+# Install Node.js dependencies (To get Tailwind working)
+npm install
+
+# Build Tailwindcss
+npm run build
+
 # Install dependencies
 pip install -r requirements.txt
 
