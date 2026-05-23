@@ -77,27 +77,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-# 1. Try to read DATABASE_URL directly from the system environment (Render)
-# 2. Fall back to my decouple config() look up if it's running locally
-database_url = os.environ.get("DATABASE_URL") or config("DATABASE_URL", default=None)
-if database_url:
-    DATABASES = {
-        'default': dj_database_url.parse(
-            str(database_url),
-            conn_max_age=600,
-            conn_health_checks=True,
-            ssl_require=True
-        )
-    }
-else:
-    # This keeps local development SQLite file working safely on my PC
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
 
+# Database configuration - Works on both local (SQLite) and Render (PostgreSQL)
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=os.environ.get("DATABASE_SSL","False") == "True",
+    )
+}
 
 
 # Password validation
