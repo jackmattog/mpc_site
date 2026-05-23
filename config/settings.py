@@ -77,9 +77,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-
-
 # 1. Try to read DATABASE_URL directly from the system environment (Render)
 # 2. Fall back to my decouple config() look up if it's running locally
 database_url = os.environ.get("DATABASE_URL") or config("DATABASE_URL", default=None)
