@@ -22,20 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-#Initializing environ
-env = environ.Env(
-    #set casting and default value
-    DEBUG=(bool,False)
-)
-
-#read the .env file
-environ.Env.read_env(BASE_DIR/'.env')
-
-#.env Variables
-SECRET_KEY = env('SECRET_KEY')
-DEBUG=os.environ.get('DEBUG',"False") == "True"
-
-ALLOWED_HOSTS = ["*"]
+# Clean and simple environment variable loading using decouple
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
