@@ -90,7 +90,7 @@ if database_url:
         )
     }
 else:
-    # This keeps your local development SQLite file working safely on your PC
+    # This keeps local development SQLite file working safely on my PC
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
