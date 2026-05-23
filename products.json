@@ -1,0 +1,132 @@
+[
+{
+  "model": "products.productcategory",
+  "pk": 1,
+  "fields": {
+    "category_name": "Animal Feeds",
+    "slug": "animal-feeds"
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": 3,
+  "fields": {
+    "category_name": "Insecticides",
+    "slug": "insecticides"
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": 4,
+  "fields": {
+    "category_name": "Herbicides",
+    "slug": "herbicides"
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": 5,
+  "fields": {
+    "category_name": "Veterinary Drugs",
+    "slug": "veterinary-drugs"
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": 6,
+  "fields": {
+    "category_name": "Farm Equipments",
+    "slug": "farm-equipments"
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": 7,
+  "fields": {
+    "category_name": "Pesticides",
+    "slug": "pesticides"
+  }
+},
+{
+  "model": "products.productsupplier",
+  "pk": 1,
+  "fields": {
+    "supplier_name": "MPC",
+    "supplier_location": "Usa River"
+  }
+},
+{
+  "model": "products.productsupplier",
+  "pk": 2,
+  "fields": {
+    "supplier_name": "JUBAIL",
+    "supplier_location": "Arusha,Tanzania"
+  }
+},
+{
+  "model": "products.productsupplier",
+  "pk": 3,
+  "fields": {
+    "supplier_name": "MTALI MAMA",
+    "supplier_location": "Maji ya chai"
+  }
+},
+{
+  "model": "products.productsupplier",
+  "pk": 4,
+  "fields": {
+    "supplier_name": "HALIMA",
+    "supplier_location": "Arusha,Tanzania"
+  }
+},
+{
+  "model": "products.productsupplier",
+  "pk": 5,
+  "fields": {
+    "supplier_name": "HARSHO",
+    "supplier_location": "Moshi,Tanzania"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "product_name": "Starter Mash",
+    "product_price": "1000.00",
+    "product_description": "Food for chicks from 0 days of age to 1 and a half a month",
+    "product_image": "products/561a000b-d6ff-4016-b739-08ae3c263773.jpg",
+    "product_unit": "kg",
+    "product_slug": "starter-mash",
+    "product_supplier": 1,
+    "product_category": 1
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "product_name": "RoundUp",
+    "product_price": "10000.00",
+    "product_description": "For killing seasonal and annual weeds and grasses of all types and kind",
+    "product_image": "products/561a000b-d6ff-4016-b739-08ae3c263773_LGGYM46.jpg",
+    "product_unit": "L",
+    "product_slug": "roundup",
+    "product_supplier": 2,
+    "product_category": 4
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "product_name": "Harsho Starter pellets",
+    "product_price": "87000.00",
+    "product_description": "Foods for chicks from the age of 0 - 14 days",
+    "product_image": "products/561a000b-d6ff-4016-b739-08ae3c263773_1OrSmUB.jpg",
+    "product_unit": "Bag",
+    "product_slug": "harsho-starter-pellets",
+    "product_supplier": 5,
+    "product_category": 1
+  }
+}
+]
