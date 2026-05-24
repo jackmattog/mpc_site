@@ -1,7 +1,5 @@
-from typing import Any
-
 from django.db.models.query import QuerySet
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView,ListView
 from apps.products.models import Product,ProductCategory,ProductSupplier
 # Create your views here.
@@ -47,3 +45,15 @@ def search_results(request):
     }
     
     return render(request, 'core/search_results.html', context)
+
+
+#Product details view(View details in search)
+def product_detail(request, slug):
+    # Fetch the product using the slug field
+    product = get_object_or_404(Product, product_slug=slug)
+    
+    context = {
+        'product': product
+    }
+    
+    return render(request, 'core/product_detail.html', context)

@@ -29,10 +29,14 @@
             <div class="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
                 
                 <!-- Product Image -->
-                <div class="h-56 bg-gray-50 flex items-center justify-center overflow-hidden">
-                    <img src="{{ product.product_image }}" 
-                         alt="{{ product.product_name }}"
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                 <div class="h-56 bg-gray-50 flex items-center justify-center overflow-hidden">
+                    {% if product.product_image %}
+                        <img src="{{ product.product_image.url }}" 
+                        alt="{{ product.product_name }}" 
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    {% else %}
+                        <span class="text-gray-400">No image available</span>
+                    {% endif %}
                 </div>
                 
                 <!-- Info -->
@@ -51,7 +55,7 @@
                     <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-end">
                         <div>
                             <span class="text-3xl font-bold text-blue-600">
-                                {{ product.product_price }}
+                                TZS {{ product.product_price }}
                             </span>
                             <span class="text-gray-500 text-sm ml-1">per {{ product.product_unit }}</span>
                         </div>

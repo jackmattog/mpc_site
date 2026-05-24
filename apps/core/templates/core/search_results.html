@@ -10,7 +10,8 @@
                 <div class="border rounded-lg p-4 shadow hover:shadow-md transition">
                     <h3 class="text-xl font-semibold text-green-700">{{ product.product_name }}</h3>
                     <p class="text-gray-600 mt-2">Price: TZS {{ product.product_price }}</p>
-                    <a href="#" class="mt-4 inline-block text-blue-600 hover:text-blue-800">
+                    <a href="{% url 'core:product_detail' product.product_slug %}" 
+                       class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-semibold">
                         View Details &rarr;</a>
                 </div>
             {% endfor %}
