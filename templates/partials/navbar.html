@@ -86,16 +86,22 @@
 <section class="hidden md:flex justify-center items-center mt-4">
     <!--search container-->
     <div class="relative">
-        <input id="search-input" class="border rounded-full
-        w-64 transition-all duration-500
-        py-3 px-4 pr-10" type="text" placeholder="Search products">
-        <div class="absolute inset-y-0 right-3 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" 
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-        </div>
+        <form action="{% url 'core:search_results' %}" method="GET">
+            <input 
+                name="q" 
+                id="search-input"
+                class="border rounded-full w-64 transition-all duration-300 focus:w-96 pl-4 pr-10 py-2" 
+                type="text" 
+                placeholder="Search products"
+                required>
+            <button type="submit" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 
+                text-gray-400" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </form>
     </div>
 </section>
 
@@ -103,17 +109,24 @@
 <!--Mobile search functionality-->
 <section class="md:hidden mt-4">
     <!--search container-->
-    <div class="relative w-4/5 mx-auto">
-        <input class="w-full border border-gray-300 rounded-2xl py-3 
-        px-4 pr-10" type="text" placeholder="Search products">
-        <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
-            class="size-6 text-gray-500">
-            <path stroke-linecap="round" stroke-linejoin="round" 
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg>
-        </div>
+    <div class="px-4 py-3 mt-2">
+        <form action="{% url 'core:search_results' %}" method="GET" class="relative">
+            <input 
+            name="q" 
+            id="mobile-search-input"
+            class="border border-green-600 rounded-full w-full pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            type="text" 
+            placeholder="Search products"
+            required
+            >
+            <button type="submit" class="absolute inset-y-0 right-0 pr-7 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 
+                text-gray-500 hover:text-green-600" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </form>
     </div>
 </section>
 

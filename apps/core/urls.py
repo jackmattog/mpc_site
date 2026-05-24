@@ -8,4 +8,5 @@ app_name = "core"
 urlpatterns = [
     path("",HomeView.as_view(),name="home"),
     path("category/<slug:slug>/",HomeView.as_view(),name="categories"),
+    path("search/",views.search_results,name='search_results'),
 ]

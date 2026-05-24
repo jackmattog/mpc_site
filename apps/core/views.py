@@ -29,4 +29,21 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         context["categories"] = ProductCategory.objects.all()
         return context
-        
+
+
+#Search view        
+def search_results(request):
+    # Get the search query from the URL
+    query = request.GET.get('q')
+    products = []
+
+    if query:
+        # Search the database where the product 'name' contains the query
+        products = Product.objects.filter(product_name__icontains=query)
+    
+    context = {
+        'products': products,
+        'query': query
+    }
+    
+    return render(request, 'core/search_results.html', context)
