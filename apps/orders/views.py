@@ -5,7 +5,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from products.models import Product  # Product model in products app
+from apps.products.models import Product  # Product model in products app
 from .models import Order, OrderItem
 
 class OrderPageView(TemplateView):
