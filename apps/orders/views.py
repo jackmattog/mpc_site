@@ -1,92 +1,108 @@
 import json
 import urllib.parse
-from django.views.generic import TemplateView
-from django.views import View
 from django.http import JsonResponse
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from apps.products.models import Product  # Product model in products app
-from .models import Order, OrderItem
+from apps.products.models import Product  # Adjust this import path if your app structure is different
+from django.shortcuts import render
 
-class OrderPageView(TemplateView):
-    """Renders the main ordering control panel page."""
-    template_name = 'orders/order_page.html'
+def order_page(request):
+    # Fetch all products to populate the left-side catalog in the template
+    products = Product.objects.all()
+    
+    # Renders the zero-friction checkout template
+    return render(request, 'orders/order_page.html', {'products': products})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Fetching all products to display as options on the checkout page
-        context['products'] = Product.objects.all()
-        return context
 
-@method_decorator(csrf_exempt, name='dispatch')
-class OrderSubmitView(View):
-    """Handles submission, creates DB records, and returns the WhatsApp URL."""
-    def post(self, request, *args, **kwargs):
+def order_submit(request):
+    if request.method == "POST":
         try:
+            # Parse the incoming JSON payload from the frontend
             data = json.loads(request.body)
-            customer_name = data.get('customer_name')
-            phone_number = data.get('phone_number')
-            delivery_location = data.get('delivery_location', '')
-            cart_items = data.get('cart_items', [])
+            cart_items = data.get("cart_items", [])
+            delivery_location = data.get("delivery_location", "").strip()
 
-            # Validation guardrail
-            if not customer_name or not phone_number or not cart_items:
-                return JsonResponse({'status': 'error', 'message': 'Missing fields'}, status=400)
+            if not delivery_location:
+                delivery_location = "Not specified (Call customer to confirm)"
 
-            # 1. Save master Order record to PostgreSQL
-            order = Order.objects.create(
-                customer_name=customer_name,
-                phone_number=phone_number,
-                delivery_location=delivery_location,
-                status='Pending'
-            )
-
-            # 2. Prepare WhatsApp text structure matching Page 2 blueprint
-            message_lines = [
-                f"Ordered by: {customer_name}",
-                f"Phone no: {phone_number}",
-            ]
-            if delivery_location:
-                message_lines.append(f"Delivery Location: {delivery_location}")
-            
-            message_lines.append("\n--- Full Order ---")
-
-            total_amount = 0
-
-            # 3. Save each item line to the database and format text string
-            for index, item in enumerate(cart_items, 1):
-                product_id = item.get('id')
-                qty = int(item.get('quantity', 1))
-                
-                product = Product.objects.get(id=product_id)
-                price = product.product_price
-                subtotal = price * qty
-                total_amount += subtotal
-
-                # Creating specific item record linked to master order
-                OrderItem.objects.create(
-                    order=order,
-                    product=product,
-                    price=price,
-                    quantity=qty
+            if not cart_items:
+                return JsonResponse(
+                    {"status": "error", "message": "Your cart is empty."},
+                    status=400,
                 )
 
-                # Format matching: Index. Name - Qty x Price = Subtotal
-                # Safely checking for an optional unit field from product model
-                unit = getattr(product, 'unit', 'pcs')
-                message_lines.append(f"{index}. {product.product_name} - {qty} {unit} x {price:,} = {subtotal:,} TZS")
+            # Start building the WhatsApp Text Message layout
+            whatsapp_msg = "*🛒 NEW MPC EXPRESS ORDER*\n"
+            whatsapp_msg += "───────────────────\n\n"
 
-            message_lines.append(f"\nTotal: {total_amount:,} TZS")
-            full_message = "\n".join(message_lines)
+            grand_total = 0
 
-            # 4. Generate direct WhatsApp redirection link
-            my_whatsapp_number = "255756340467" 
-            encoded_message = urllib.parse.quote(full_message)
-            whatsapp_url = f"https://wa.me/{my_whatsapp_number}?text={encoded_message}"
+            # Optional: If you are saving the main Order to your database, initialize it here
+            # order = Order.objects.create(delivery_location=delivery_location, total=0)
 
-            return JsonResponse({'status': 'success', 'whatsapp_url': whatsapp_url})
+            for item in cart_items:
+                # The frontend JS sends the slug inside the 'slug' key
+                item_slug = item.get("slug")
+                quantity = int(item.get("quantity", 1))
 
-        except Product.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'One of the selected products does not exist'}, status=404)
+                try:
+                    # FIX: Looking up the product strictly using your 'product_slug' column
+                    product = Product.objects.get(product_slug=item_slug)
+                except Product.DoesNotExist:
+                    return JsonResponse(
+                        {
+                            "status": "error",
+                            "message": "One of the selected products does not exist in the live database.",
+                        },
+                        status=404,
+                    )
+
+                # Calculate financials using exact model field attributes
+                subtotal = product.product_price * quantity
+                grand_total += subtotal
+
+                # Append item details directly to the WhatsApp text output string
+                unit_label = product.product_unit if product.product_unit else "pcs"
+                whatsapp_msg += f"📦 *{product.product_name}*\n"
+                whatsapp_msg += f"   Qty: {quantity} {unit_label}\n"
+                whatsapp_msg += f"   Price: {product.product_price:,} TZS\n"
+                whatsapp_msg += f"   Subtotal: {subtotal:,} TZS\n\n"
+
+                # Optional: Save individual items to your database here if needed
+                # OrderItem.objects.create(order=order, product=product, quantity=quantity, price=product.product_price)
+
+            # Finish formatting the WhatsApp bill layout
+            whatsapp_msg += "───────────────────\n"
+            whatsapp_msg += f"💰 *Grand Total:* {grand_total:,} TZS\n"
+            whatsapp_msg += f"📍 *Delivery:* {delivery_location}\n\n"
+            whatsapp_msg += (
+                "⚡ _Please tap send to submit. I am waiting for your call confirmation!_"
+            )
+
+            # Clean URL encoding for the WhatsApp string payload
+            encoded_msg = urllib.parse.quote(whatsapp_msg)
+
+            # CHANGE THIS: Put your actual business WhatsApp phone number (with country code, no + symbol)
+            # Example for Tanzania: "255712345678"
+            whatsapp_business_number = "255XXXXXXXXX"
+
+            whatsapp_url = f"https://wa.me/{whatsapp_business_number}?text={encoded_msg}"
+
+            # Optional: Update the order grand total in your database before completing response
+            # order.total = grand_total
+            # order.save()
+
+            return JsonResponse({"status": "success", "whatsapp_url": whatsapp_url})
+
+        except json.JSONDecodeError:
+            return JsonResponse(
+                {"status": "error", "message": "Invalid JSON data received."},
+                status=400,
+            )
         except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+            return JsonResponse(
+                {"status": "error", "message": f"Server processing error: {str(e)}"},
+                status=500,
+            )
+
+    return JsonResponse(
+        {"status": "error", "message": "Method not allowed."}, status=405
+    )

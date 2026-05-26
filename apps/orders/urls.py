@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import OrderPageView, OrderSubmitView
+from . import views
 
 app_name = 'orders'
 
 urlpatterns = [
-    path('checkout/', OrderPageView.as_view(), name='order_page'),
-    path('submit/', OrderSubmitView.as_view(), name='order_submit'),
+    # The URL to view your new control panel template
+    path('', views.order_page, name='order_page'), 
+    
+    # The URL we just fixed for the checkout logic
+    path('submit/', views.order_submit, name='order_submit'),
 ]
