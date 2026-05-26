@@ -34,8 +34,6 @@ def order_submit(request):
             whatsapp_msg += "───────────────────\n\n"
 
             grand_total = 0
-
-            # Optional: If you are saving the main Order to your database, initialize it here
             # order = Order.objects.create(delivery_location=delivery_location, total=0)
 
             for item in cart_items:
@@ -82,7 +80,7 @@ def order_submit(request):
 
             # CHANGE THIS: Put your actual business WhatsApp phone number (with country code, no + symbol)
             # Example for Tanzania: "255712345678"
-            whatsapp_business_number = "255XXXXXXXXX"
+            whatsapp_business_number = "255794700716"
 
             whatsapp_url = f"https://wa.me/{whatsapp_business_number}?text={encoded_msg}"
 
