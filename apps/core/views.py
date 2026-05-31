@@ -57,3 +57,18 @@ def product_detail(request, slug):
     }
     
     return render(request, 'core/product_detail.html', context)
+
+class AboutView(TemplateView):
+    template_name = 'core/about.html'
+
+class MixingFormulasView(TemplateView):
+    template_name = 'core/mixing_formulas.html'
+
+class FarmingAdvicesView(TemplateView):
+    template_name = 'core/farmingadvices.html'
+
+class TipsView(TemplateView):
+    template_name = 'core/tips.html'
+
+class ContactView(TemplateView):
+    template_name = 'core/contacts.html'
