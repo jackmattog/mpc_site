@@ -1,6 +1,8 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView,ListView
+from apps.core.models import Suggestion
 from apps.products.models import Product,ProductCategory,ProductSupplier
 # Create your views here.
 
@@ -71,4 +73,12 @@ class TipsView(TemplateView):
     template_name = 'core/tips.html'
 
 class ContactView(TemplateView):
+    model = Suggestion
     template_name = 'core/contacts.html'
+    fields = ['name', 'contact_details', 'message']
+    success_url = reverse_lazy('contact') #This refresh the page after submission
+
+    def form_valid(self, form):
+        #Success message to show the user
+        message.success(self.request, "Thank you! Your message has been received by MPC")
+        return super().form_valid(form)
