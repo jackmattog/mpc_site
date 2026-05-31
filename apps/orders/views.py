@@ -29,20 +29,21 @@ def order_submit(request):
                     status=400,
                 )
 
-            # Start building the WhatsApp Text Message layout
-            whatsapp_msg = "*🛒 NEW MPC EXPRESS ORDER*\n"
-            whatsapp_msg += "───────────────────\n\n"
+            # 1. WhatsApp receipt header
+            whatsapp_msg = "🧾 *NEW ORDER - MPC CENTER*\n"
+            whatsapp_msg += "━━━━━━━━━━━━━━━━━━━━━━\n\n"
 
             grand_total = 0
             # order = Order.objects.create(delivery_location=delivery_location, total=0)
 
-            for item in cart_items:
+            # Using enumerate(..., 1) automatically adds a 1, 2, 3... counter to list
+            for index, item in enumerate(cart_items, 1):
                 # The frontend JS sends the slug inside the 'slug' key
                 item_slug = item.get("slug")
                 quantity = int(item.get("quantity", 1))
 
                 try:
-                    # FIX: Looking up the product strictly using your 'product_slug' column
+                    # FIX: Looking up the product strictly using 'product_slug' column
                     product = Product.objects.get(product_slug=item_slug)
                 except Product.DoesNotExist:
                     return JsonResponse(
@@ -57,34 +58,33 @@ def order_submit(request):
                 subtotal = product.product_price * quantity
                 grand_total += subtotal
 
-                # Append item details directly to the WhatsApp text output string
+                # 2. Append cleanly formatted item details to the WhatsApp string
                 unit_label = product.product_unit if product.product_unit else "pcs"
-                whatsapp_msg += f"📦 *{product.product_name}*\n"
-                whatsapp_msg += f"   Qty: {quantity} {unit_label}\n"
-                whatsapp_msg += f"   Price: {product.product_price:,} TZS\n"
-                whatsapp_msg += f"   Subtotal: {subtotal:,} TZS\n\n"
+                
+                # Using :,.2f formats the numbers with commas (e.g., 10,000.00)
+                whatsapp_msg += f"*{index}. {product.product_name}*\n"
+                whatsapp_msg += f"   ➤ {quantity} {unit_label}  x  TZS {product.product_price:,.2f}\n"
+                whatsapp_msg += f"   *Subtotal:* TZS {subtotal:,.2f}\n\n"
 
-                # Optional: Save individual items to your database here if needed
+                # Optional: Save individual items to database here if needed letter
                 # OrderItem.objects.create(order=order, product=product, quantity=quantity, price=product.product_price)
 
-            # Finish formatting the WhatsApp bill layout
-            whatsapp_msg += "───────────────────\n"
-            whatsapp_msg += f"💰 *Grand Total:* {grand_total:,} TZS\n"
-            whatsapp_msg += f"📍 *Delivery:* {delivery_location}\n\n"
-            whatsapp_msg += (
-                "⚡ _Please tap send to submit. I am waiting for your call confirmation!_"
-            )
+            # 3. Finishing formatting the WhatsApp bill footer layout
+            whatsapp_msg += "━━━━━━━━━━━━━━━━━━━━━━\n"
+            whatsapp_msg += f"💰 *GRAND TOTAL:* TZS {grand_total:,.2f}\n"
+            whatsapp_msg += "━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            whatsapp_msg += f"📍 *Drop-off Note / Location:*\n_{delivery_location}_\n\n"
+            whatsapp_msg += "⚡ _Please tap send to submit this order. I am waiting for your confirmation!_"
 
             # Clean URL encoding for the WhatsApp string payload
             encoded_msg = urllib.parse.quote(whatsapp_msg)
 
-            # CHANGE THIS: Put your actual business WhatsApp phone number (with country code, no + symbol)
-            # Example for Tanzania: "255712345678"
+            # Your actual business WhatsApp phone number for Tanzania
             whatsapp_business_number = "255794700716"
 
             whatsapp_url = f"https://wa.me/{whatsapp_business_number}?text={encoded_msg}"
 
-            # Optional: Update the order grand total in your database before completing response
+            # Optional: Updating the order grand total into database before completing response
             # order.total = grand_total
             # order.save()
 
