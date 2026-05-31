@@ -6,25 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Mabatini Pumba Center{% endblock title %}</title>
     
+    <!-- Tailwind CSS Output Sheet -->
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
-<body class="m-4">
+<body class="bg-gray-50 text-gray-900 antialiased">
 
-    <!--Add navbar partial-->
+    <!-- desktop navbar partial -->
     {% include 'partials/navbar.html' %}
 
-    <main>
+    <!-- sticky mobile top search bar partial -->
+    {% include 'partials/mobile_search.html' %}
+
+    <!-- 
+      MAIN CONTENT CONTAINER 
+      - pt-15 clears space for the top sticky mobile search bar (removes on desktop via sm:pt-0)
+      - pb-19 clears space for the bottom sticky mobile navigation bar (removes on desktop via sm:pb-0)
+      - px-4 mx-auto safely preserves layout spacing without breaking full-width elements
+    -->
+    <main class="pt-15 sm:pt-0 pb-19 sm:pb-0 px-4 max-w-7xl mx-auto mt-4">
         {% block content %}
         {% endblock content %}
     </main>
 
-    <!--Add order button partials-->
+    <!-- Add order button partials -->
     {% include 'partials/order_button.html' %}
-    
-    <!--Add footer partial-->
+
+    <!-- Add footer partial -->
     {% include 'partials/footer.html' %}
 
-    <!--Mobile buttom navbar-->
+    <!-- Mobile bottom navbar -->
     {% include 'partials/mobile_bottom_navbar.html' %}
 
 </body>

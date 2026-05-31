@@ -1,122 +1,65 @@
-<nav class="md:bg-gray-100 border-2 p-4 md:border-gray-200 md:rounded-2xl">
+<!-- Desktop Top Navigation (Hidden on mobile, visible on sm and larger screens) -->
+<header class="hidden sm:block w-full bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+    
+    <!-- TOP ROW: Centered Logo & Professional Search -->
+    <div class="container mx-auto px-4 pt-6 pb-2 flex flex-col items-center justify-center">
+        <!-- Logo -->
+        <a href="{% url 'core:home' %}" class="flex flex-col items-center text-center group">
+            <h1 class="text-4xl md:text-5xl font-black text-green-700 tracking-tight group-hover:text-green-800 transition-colors">
+                MPC
+            </h1>
+            <p class="text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-widest mt-1">
+                Mabatini Pumba Center
+            </p>
+        </a>
 
-    <!--desktop navabar-->
-    <!--Outer container-->
-    <div class="md:flex flex-col">
-        <div class="flex flex-row items-center justify-between">
-            <!--account container-->
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" 
-                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 
-                7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 
-                0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 
-                1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-            </div>
-
-            <!--Logo-->
-            <div>
-                <h1 class="mb-0 text-green-700">MPC</h1>
-                <h4 class="mt-0 text-blue-700">( Mabatini Pumba Center )</h4>
-            </div>
-        </div>
-        <!--Links-->
-        <div>
-            <ul class="flex flex-row items-center justify-evenly">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="{% url 'core:contacts' %}">Contact us</a></li>
-                <li><a href="#">Mixing formulas</a></li>
-                <li><a href="#">Farming advice</a></li>
-                <li><a href="#">Tips</a></li>
-            </ul>
+        <!-- Desktop Search Functionality -->
+        <div class="relative mt-4">
+            <form action="{% url 'core:search_results' %}" method="GET">
+                <input
+                    name="q"
+                    id="search-input"
+                    class="border border-gray-300 rounded-full w-64 transition-all duration-300 pl-4 pr-10 py-2 focus:border-green-600 focus:ring-2 focus:ring-green-100 focus:outline-none text-sm shadow-sm"
+                    type="text"
+                    placeholder="Search products..."
+                    required>
+                <button type="submit" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-green-600 transition-colors">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+            </form>
         </div>
     </div>
-</nav>
 
-<!--Desktop search functionality-->
-<section class="hidden md:flex justify-center items-center mt-4">
-    <!--search container-->
-    <div class="relative">
-        <form action="{% url 'core:search_results' %}" method="GET">
-            <input 
-                name="q" 
-                id="search-input"
-                class="border rounded-full w-64 transition-all duration-300 focus:w-96 pl-4 pr-10 py-2" 
-                type="text" 
-                placeholder="Search products"
-                required>
-            <button type="submit" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 
-                text-gray-400" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </button>
-        </form>
-    </div>
-</section>
+    <!-- BOTTOM ROW: Centered Links -->
+    <nav class="container mx-auto px-4 pb-5">
+        <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <li><a href="{% url 'core:home' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Home</a></li>
+            <li><a href="{% url 'core:about' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">About Us</a></li>
+            <li><a href="{% url 'core:contacts' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Contact Us</a></li>
+            <li><a href="{% url 'core:mixing_formulas' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Mixing Formulas</a></li>
+            <li><a href="{% url 'core:farming_advices' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Farming Advices</a></li>
+            <li><a href="{% url 'core:tips' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Tips</a></li>
+            <li class="ml-2">
+                <a href="{% url 'orders:order_page' %}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-green-600 rounded-lg hover:bg-green-700 shadow-md transition-all">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                    Order Products
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-
-<!--Mobile search functionality-->
-<section class="md:hidden mt-4">
-    <!--search container-->
-    <div class="px-4 py-3 mt-2">
-        <form action="{% url 'core:search_results' %}" method="GET" class="relative">
-            <input 
-            name="q" 
-            id="mobile-search-input"
-            class="border border-green-600 rounded-full w-full pl-4 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-            type="text" 
-            placeholder="Search products"
-            required
-            >
-            <button type="submit" class="absolute inset-y-0 right-0 pr-7 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 
-                text-gray-500 hover:text-green-600" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </button>
-        </form>
-    </div>
-</section>
-
-<!--Js for desktop search-->
+<!-- JS for Desktop Search Expansion -->
 <script>
-  const searchInput = document.getElementById('search-input');
-
-  // Using focus/blur for automatic expansion
-  searchInput.addEventListener('focus', () => {
-    searchInput.classList.replace('w-64', 'w-96');
-  });
-
-  searchInput.addEventListener('blur', () => {
-    searchInput.classList.replace('w-96', 'w-64');
-  });
-</script>
-
-<!--Js for menu-->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menu-btn');
-    const menuDropdown = document.getElementById('menu-dropdown');
-
-    if (menuBtn && menuDropdown) {
-        menuBtn.addEventListener('click', (e) => {
-            // Prevent the click from immediately bubbling up to document
-            e.stopPropagation(); 
-            menuDropdown.classList.toggle('hidden');
-        });
-
-        //Close the menu if the user clicks anywhere else on the screen
-        document.addEventListener('click', (e) => {
-            if (!menuDropdown.contains(e.target) && e.target !== menuBtn) {
-                menuDropdown.classList.add('hidden');
-            }
-        });
-    }
-});
+    const searchInput = document.getElementById('search-input');
+    
+    searchInput.addEventListener('focus', () => {
+        searchInput.classList.replace('w-64', 'w-96');
+    });
+    
+    searchInput.addEventListener('blur', () => {
+        searchInput.classList.replace('w-96', 'w-64');
+    });
 </script>
