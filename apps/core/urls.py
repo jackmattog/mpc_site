@@ -14,6 +14,6 @@ urlpatterns = [
     path("",MixingFormulasView.as_view(),name="mixing_formulas"),
     path("",FarmingAdvicesView.as_view(),name="farming_advices"),
     path("",TipsView.as_view(),name="tips"),
-    path("",ContactView.as_view(),name="contacts"),
+    path("contacts/",ContactView.as_view(),name="contacts"),
 
 ]

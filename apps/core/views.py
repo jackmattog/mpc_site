@@ -1,10 +1,10 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView, CreateView
 from apps.core.models import Suggestion
+from django.contrib import messages
 from apps.products.models import Product,ProductCategory,ProductSupplier
-# Create your views here.
 
 #Homepage view
 class HomeView(ListView):
@@ -72,7 +72,7 @@ class FarmingAdvicesView(TemplateView):
 class TipsView(TemplateView):
     template_name = 'core/tips.html'
 
-class ContactView(TemplateView):
+class ContactView(CreateView):
     model = Suggestion
     template_name = 'core/contacts.html'
     fields = ['name', 'contact_details', 'message']
@@ -80,5 +80,5 @@ class ContactView(TemplateView):
 
     def form_valid(self, form):
         #Success message to show the user
-        message.success(self.request, "Thank you! Your message has been received by MPC")
+        messages.success(self.request, "Thank you! Your message has been received by MPC")
         return super().form_valid(form)
