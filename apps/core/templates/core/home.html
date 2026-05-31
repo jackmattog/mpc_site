@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!--Hide scrollbars for an ultra-clean mobile swiping experience -->
+<!-- Style override to hide scrollbars for an ultra-clean mobile swiping experience -->
 <style>
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 
 <!-- ==========================================
-     HERO SECTION: MPC & Web Services 
+     HERO SECTION: MPC & Web Purposes
 =========================================== -->
-<section class="mb-12 mt-4 rounded-3xl bg-linear-to-br from-gray-900 
-via-gray-800 to-gray-900 text-white overflow-hidden shadow-2xl relative">
-    
-    <!-- Decorative Ambient Background Glows -->
+<section class="mb-12 mt-4 rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 
+to-gray-900 text-white overflow-hidden shadow-2xl relative">
+    <!-- Ambient Background Glows -->
     <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full 
     bg-green-500 opacity-10 blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full 
@@ -21,11 +20,9 @@ via-gray-800 to-gray-900 text-white overflow-hidden shadow-2xl relative">
     
     <div class="px-6 py-16 sm:px-12 lg:px-16 flex flex-col items-start relative z-10">
         <div class="max-w-3xl">
-            <!-- Badge -->
             <span class="inline-block py-1 px-3 rounded-full bg-gray-800 border 
-            border-gray-700 text-xs font-bold text-green-400 
-            uppercase tracking-widest mb-6 shadow-sm">
-                Based in Arusha,Tanzania
+            border-gray-700 text-xs font-bold text-green-400 uppercase tracking-widest mb-6 shadow-sm">
+                Based in Arusha, Tanzania
             </span>
             
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6 leading-tight">
@@ -44,53 +41,51 @@ via-gray-800 to-gray-900 text-white overflow-hidden shadow-2xl relative">
             </p>
             
             <div class="flex flex-wrap gap-4">
-                <!-- Smooth scroll to products -->
-                <a href="#products-section" class="px-8 py-3.5 bg-green-600 hover:bg-green-500
-                 text-white font-bold rounded-xl shadow-lg shadow-green-600/20 active:scale-95 transition-all">
+                <a href="#products-section" class="px-8 py-3.5 bg-green-600 hover:bg-green-500 
+                text-white font-bold rounded-xl shadow-lg shadow-green-600/20 
+                active:scale-95 transition-all">
                     Explore Products
                 </a>
                 <a href="{% url 'core:contacts' %}" class="px-8 py-3.5 bg-gray-800 border 
-                border-gray-600 hover:bg-gray-700 hover:border-gray-500 text-white font-bold 
-                rounded-xl active:scale-95 transition-all flex items-center">
+                border-gray-600 hover:bg-gray-700 hover:border-gray-500 text-white 
+                font-bold rounded-xl active:scale-95 transition-all flex items-center">
                     Request Web Services
-                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" 
-                    viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" 
-                    stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                        stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-
 <!-- ==========================================
-     MAIN LAYOUT: Categories (Left) & Products (Right)
+     MAIN LAYOUT: Categories & Products Split
 =========================================== -->
 <section id="products-section" class="lg:grid lg:grid-cols-4 lg:gap-10 pb-12 pt-6">
     
-    <!-- LEFT COLUMN: CATEGORIES SIDEBAR -->
+    <!-- LEFT SIDEBAR: Product Categories -->
     <div class="lg:col-span-1 mb-10 lg:mb-0">
-        <!-- sticky top-25 keeps it fixed on desktop while the user scrolls through products -->
         <div class="sticky top-25">
             <h2 class="text-2xl font-black text-gray-900 mb-6 flex items-center">
                 <span class="w-2 h-6 bg-green-600 rounded-full mr-3"></span>
-                product Categories
+                Categories
             </h2>
             
-            <!-- Mobile: Horizontal Swipe | Desktop: Vertical Stack -->
+            <!-- Mobile: Horizontal Scroll Row | Desktop: Vertical Sidebar Stack -->
             <div class="flex gap-4 overflow-x-auto pb-4 snap-x lg:flex-col 
             lg:overflow-visible lg:pb-0 lg:gap-3 hide-scrollbar">
                 {% for category in categories %}
                 <a href="{% url 'core:categories' category.slug %}" 
-                   class="shrink-0 snap-start px-6 py-4 bg-white border border-gray-100 
-                   hover:border-green-500 hover:bg-green-50 hover:text-green-700 rounded-2xl 
-                   shadow-sm text-gray-700 font-bold transition-all flex items-center justify-between group">
+                   class="ajax-category-link shrink-0 snap-start px-6 py-4 bg-white border 
+                   border-gray-100 hover:border-green-500 hover:bg-green-50 
+                   hover:text-green-700 rounded-2xl shadow-sm text-gray-700 font-bold 
+                   transition-all flex items-center justify-between group">
                     {{ category.category_name }}
                     
-                    <!-- Arrow icon that only appears on desktop hover -->
                     <svg class="w-4 h-4 text-gray-300 group-hover:text-green-600 hidden 
-                    lg:block transition-colors transform group-hover:translate-x-1" 
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    lg:block transition-colors transform group-hover:translate-x-1" fill="none" 
+                    viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" 
                         stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
@@ -100,86 +95,134 @@ via-gray-800 to-gray-900 text-white overflow-hidden shadow-2xl relative">
         </div>
     </div>
 
-    <!-- RIGHT COLUMN: PRODUCT GRID/SWIPER -->
+    <!-- RIGHT CONTAINER: Dynamic Products Area -->
     <div class="lg:col-span-3 border-t border-gray-200 lg:border-t-0 pt-8 lg:pt-0">
         <div class="flex items-end justify-between mb-8">
             <h2 class="text-2xl font-black text-gray-900 flex items-center">
                 <span class="w-2 h-6 bg-blue-600 rounded-full mr-3 lg:hidden"></span>
-                Featured Products
+                Products
             </h2>
         </div>
 
-        <!-- Mobile: Horizontal Swipe | Desktop: CSS Grid Layout -->
-        <div class="flex gap-6 overflow-x-auto pb-8 snap-x lg:grid 
-        lg:grid-cols-2 xl:grid-cols-3 lg:overflow-visible lg:pb-0 hide-scrollbar">
-            
-            {% for product in products %}
-            <!-- Product Card -->
-            <div class="flex-none w-70 sm:w-[320px] lg:w-auto snap-start bg-white border 
-            border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl 
-            hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full">
+        <!-- The Target Wrapper for AJAX updates -->
+        <div id="product-grid-wrapper" class="transition-opacity duration-200">
+            <!-- Mobile: Horizontal Swipe Layout | Desktop: Responsive Clean Grid Matrix -->
+            <div class="flex gap-6 overflow-x-auto pb-8 snap-x lg:grid lg:grid-cols-2 
+            xl:grid-cols-3 lg:overflow-visible lg:pb-0 hide-scrollbar">
                 
-                <!-- Image Block -->
-                <div class="h-56 bg-gray-50 flex items-center justify-center overflow-hidden relative border-b border-gray-100">
-                    {% if product.product_image %}
-                        <img src="{{ product.product_image.url }}" 
-                             alt="{{ product.product_name }}" 
-                             class="w-full h-full object-cover group-hover:scale-105 
-                             transition-transform duration-500">
-                    {% else %}
-                        <span class="text-gray-400 font-medium">No image available</span>
-                    {% endif %}
-                </div>
-
-                <!-- Text Content Block -->
-                <!-- flex-grow pushes the price block to the bottom evenly -->
-                <div class="p-6 flex flex-col grow">
-                    <div class="mb-4">
-                        <p class="text-[10px] font-bold text-green-700 uppercase 
-                        tracking-wider bg-green-50 inline-block px-2.5 py-1 rounded-md mb-3 border border-green-100">
-                            {{ product.product_supplier.supplier_name }}
-                        </p>
-                        <h3 class="text-lg font-bold text-gray-900 line-clamp-2 mb-2 
-                        group-hover:text-green-600 transition-colors">
-                            {{ product.product_name }}
-                        </h3>
-                        <p class="text-sm text-gray-500 line-clamp-3 leading-relaxed">
-                            {{ product.product_description }}
-                        </p>
-                    </div>
+                {% for product in products %}
+                <!-- Unified Product Card Layout -->
+                <div class="flex-none w-70 sm:w-[320px] lg:w-auto snap-start bg-white border 
+                border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl 
+                hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full">
                     
-                    <!-- Price Block (Pinned to bottom) -->
-                    <div class="mt-auto pt-5 border-t border-gray-100 flex justify-between items-end">
-                        <div>
-                            <p class="text-xs text-gray-400 font-medium mb-1">
-                                Price per {{ product.product_unit }}</p>
-                            <span class="text-xs font-bold text-gray-900">TZS</span>
-                            <span class="text-2xl font-black text-gray-900 tracking-tight">
-                                {{ product.product_price }}
-                            </span>
+                    <!-- Media Area -->
+                    <div class="h-56 bg-gray-50 flex items-center justify-center 
+                    overflow-hidden relative border-b border-gray-100">
+                        {% if product.product_image %}
+                            <img src="{{ product.product_image.url }}" 
+                                 alt="{{ product.product_name }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 
+                                 transition-transform duration-500">
+                        {% else %}
+                            <span class="text-gray-400 font-medium text-sm">No image available</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Informational Area -->
+                    <div class="p-6 flex flex-col grow">
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-green-700 uppercase 
+                            tracking-wider bg-green-50 inline-block px-2.5 py-1 
+                            rounded-md mb-3 border border-green-100">
+                                Supplied by {{ product.product_supplier.supplier_name }}
+                            </p>
+                            <h3 class="text-lg font-bold text-gray-900 line-clamp-2 mb-2 
+                            group-hover:text-green-600 transition-colors">
+                                {{ product.product_name }}
+                            </h3>
+                            <p class="text-sm text-gray-500 line-clamp-3 leading-relaxed">
+                                {{ product.product_description }}
+                            </p>
+                        </div>
+                        
+                        <!-- Valuation Footer Area (Anchored to base) -->
+                        <div class="mt-auto pt-5 border-t border-gray-100 flex justify-between items-end">
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium mb-1">
+                                    Price per {{ product.product_unit }}</p>
+                                <span class="text-xs font-bold text-gray-900">TZS</span>
+                                <span class="text-2xl font-black text-gray-900 tracking-tight">
+                                    {{ product.product_price }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            {% empty %}
-            <!-- Empty State -->
-            <div class="col-span-full w-full py-16 text-center bg-gray-50 rounded-3xl 
-            border-2 border-gray-200 border-dashed">
-                <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" 
-                viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 
-                    0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 
-                    1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                </svg>
-                <p class="text-lg font-bold text-gray-600">No products found</p>
-                <p class="text-sm text-gray-400 mt-1">Try selecting a different category.</p>
-            </div>
-            {% endfor %}
+                {% empty %}
+                <!-- Fallback Display Area -->
+                <div class="col-span-full w-full py-16 text-center bg-gray-50 
+                rounded-3xl border-2 border-gray-200 border-dashed">
+                    <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" 
+                    viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                        stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 
+                        2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 
+                        1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 
+                        1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                    <p class="text-lg font-bold text-gray-600">
+                        No products found in this category</p>
+                    <p class="text-sm text-gray-400 mt-1">
+                        Try selecting a different option from the sidebar.</p>
+                </div>
+                {% endfor %}
 
+            </div>
         </div>
     </div>
 </section>
 
+<!-- ==========================================
+     AJAX CONTROLLER: Dynamic Content Injector
+=========================================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const categoryLinks = document.querySelectorAll('.ajax-category-link');
+    const productsWrapper = document.getElementById('product-grid-wrapper');
+
+    categoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            
+            const targetUrl = this.getAttribute('href');
+
+            // Applying a sleek transition effect
+            productsWrapper.style.opacity = '0.3';
+
+            // Fetch the entire page silently in background
+            fetch(targetUrl)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Extract exactly what to transition
+                    const newProductsHTML = doc.getElementById('product-grid-wrapper').innerHTML;
+                    
+                    // Instantly swap the DOM node tree 
+                    productsWrapper.innerHTML = newProductsHTML;
+                    productsWrapper.style.opacity = '1';
+
+                    // Update browser state natively 
+                    window.history.pushState(null, '', targetUrl);
+                })
+                .catch(error => {
+                    console.error('AJAX sync failed, processing fallback execution:', error);
+                    window.location.href = targetUrl;
+                });
+        });
+    });
+});
+</script>
 {% endblock %}
