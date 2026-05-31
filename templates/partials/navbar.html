@@ -1,65 +1,82 @@
 <!-- Desktop Top Navigation (Hidden on mobile, visible on sm and larger screens) -->
-<header class="hidden sm:block w-full bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+<header class="hidden sm:block w-full bg-white/95 backdrop-blur-sm 
+shadow-sm border-b border-gray-100 sticky top-0 z-50 pt-3 pb-3">
     
-    <!-- TOP ROW: Centered Logo & Professional Search -->
-    <div class="container mx-auto px-4 pt-6 pb-2 flex flex-col items-center justify-center">
-        <!-- Logo -->
-        <a href="{% url 'core:home' %}" class="flex flex-col items-center text-center group">
-            <h1 class="text-4xl md:text-5xl font-black text-green-700 tracking-tight group-hover:text-green-800 transition-colors">
-                MPC
-            </h1>
-            <p class="text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-widest mt-1">
-                Mabatini Pumba Center
-            </p>
-        </a>
-
-        <!-- Desktop Search Functionality -->
-        <div class="relative mt-4">
-            <form action="{% url 'core:search_results' %}" method="GET">
+    <!-- TOP ROW: Search (Left), Logo (Center), Order Button (Right) -->
+    <!-- Added gap-6 to physically prevent elements from ever touching -->
+    <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between gap-6">
+        
+        <!-- 1. Left: Professional Search Form -->
+        <!-- flex-1 to safely absorb empty space -->
+        <div class="flex-1 flex justify-start min-w-0">
+            <form action="{% url 'core:search_results' %}" method="GET" class="relative">
+                <!-- Swapped JS for Tailwind focus states: w-48 by default, expanding to w-64 or w-80 on focus -->
                 <input
                     name="q"
-                    id="search-input"
-                    class="border border-gray-300 rounded-full w-64 transition-all duration-300 pl-4 pr-10 py-2 focus:border-green-600 focus:ring-2 focus:ring-green-100 focus:outline-none text-sm shadow-sm"
+                    class="border border-gray-300 rounded-full w-48 lg:w-64 focus:w-60 
+                    lg:focus:w-80 transition-all duration-300 pl-4 pr-10 py-1.5 focus:border-green-600 
+                    focus:ring-2 focus:ring-green-100 focus:outline-none text-sm shadow-sm"
                     type="text"
                     placeholder="Search products..."
                     required>
-                <button type="submit" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-green-600 transition-colors">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                <button type="submit" class="absolute inset-y-0 right-0 pr-3 flex items-center 
+                text-gray-400 hover:text-green-600 transition-colors">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" 
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                        stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </button>
             </form>
         </div>
+
+        <!-- 2. Center: Logo & Subtitle -->
+        <!-- flex-shrink-0 to guarantees the logo will NEVER get squished -->
+        <div class="shrink-0 flex justify-center">
+            <a href="{% url 'core:home' %}" class="flex flex-col items-center text-center group">
+                <h1 class="text-3xl font-black text-green-700 tracking-tight 
+                group-hover:text-green-800 transition-colors leading-none">
+                    MPC
+                </h1>
+                <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest mt-1">
+                    Mabatini Pumba Center
+                </p>
+            </a>
+        </div>
+
+        <!-- 3. Right: Order Button -->
+        <!-- flex-1 perfectly balances the left side so the logo stays dead center -->
+        <div class="flex-1 flex justify-end min-w-0">
+            <a href="{% url 'orders:order_page' %}" class="inline-flex items-center justify-center 
+            px-4 py-2 text-xs font-bold text-white bg-green-600 rounded-lg hover:bg-green-700 
+            shadow-sm transition-all whitespace-nowrap">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" 
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                Order Products
+            </a>
+        </div>
+
     </div>
 
     <!-- BOTTOM ROW: Centered Links -->
-    <nav class="container mx-auto px-4 pb-5">
-        <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            <li><a href="{% url 'core:home' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Home</a></li>
-            <li><a href="{% url 'core:about' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">About Us</a></li>
-            <li><a href="{% url 'core:contacts' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Contact Us</a></li>
-            <li><a href="{% url 'core:mixing_formulas' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Mixing Formulas</a></li>
-            <li><a href="{% url 'core:farming_advices' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Farming Advices</a></li>
-            <li><a href="{% url 'core:tips' %}" class="text-sm font-semibold text-gray-600 hover:text-green-600 transition-colors">Tips</a></li>
-            <li class="ml-2">
-                <a href="{% url 'orders:order_page' %}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-green-600 rounded-lg hover:bg-green-700 shadow-md transition-all">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    Order Products
-                </a>
-            </li>
+    <nav class="container mx-auto px-4 mt-3">
+        <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <li><a href="{% url 'core:home' %}" class="text-sm font-semibold 
+                text-gray-600 hover:text-green-600 transition-colors">Home</a></li>
+            <li><a href="{% url 'core:about' %}" class="text-sm font-semibold 
+                text-gray-600 hover:text-green-600 transition-colors">About Us</a></li>
+            <li><a href="{% url 'core:contacts' %}" class="text-sm font-semibold 
+                text-gray-600 hover:text-green-600 transition-colors">Contact Us</a></li>
+            <li><a href="{% url 'core:mixing_formulas' %}" class="text-sm font-semibold 
+                text-gray-600 hover:text-green-600 transition-colors">Mixing Formulas</a></li>
+            <li><a href="{% url 'core:farming_advices' %}" class="text-sm font-semibold 
+                text-gray-600 hover:text-green-600 transition-colors">Farming Advices</a></li>
+            <li><a href="{% url 'core:tips' %}" class="text-sm font-semibold 
+                text-gray-600 hover:text-green-600 transition-colors">Tips</a></li>
         </ul>
     </nav>
+    
 </header>
-
-<!-- JS for Desktop Search Expansion -->
-<script>
-    const searchInput = document.getElementById('search-input');
-    
-    searchInput.addEventListener('focus', () => {
-        searchInput.classList.replace('w-64', 'w-96');
-    });
-    
-    searchInput.addEventListener('blur', () => {
-        searchInput.classList.replace('w-96', 'w-64');
-    });
-</script>
