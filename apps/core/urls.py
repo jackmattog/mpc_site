@@ -13,7 +13,7 @@ urlpatterns = [
     path("about/",AboutView.as_view(),name="about"),
     path("",MixingFormulasView.as_view(),name="mixing_formulas"),
     path("",FarmingAdvicesView.as_view(),name="farming_advices"),
-    path("",TipsView.as_view(),name="tips"),
+    path("tips/",TipsView.as_view(),name="tips"),
     path("contacts/",ContactView.as_view(),name="contacts"),
 
 ]
